@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/theme/default.css">
+    <title>ヤスガミサウンド</title>
+
+    <style type="text/css">
+        body {
+            background-color: gainsboro;
+        }
+    </style>
+</head>
+<body>
+
+<div id="load-percussion">
+    <audio :id='"audio-" + name' :src='"sounds/" + name + ".mp3"' preload="none" v-for="name in sounds"></audio>
+</div>
+<div id="load-shout">
+    <audio :id='"audio-" + sound.name' :src='"sounds/" + sound.name + ".mp3"' preload="none"
+           v-for="sound in sounds"></audio>
+</div>
+
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+        <h1>ヤスガミサウンド</h1>
+    </a>
+    <span id="app" style="width: 200px">
+        <vue-slider ref="slider" v-model="volume" @change="onChange"></vue-slider>
+    </span>
+</nav>
+
+
+<div class="container-fluid">
+    <br>
+    <h2>シャウト</h2>
+    <div id="play-shout">
+        <div class="row">
+            <div v-for="keyLabel in keyLabels" class="col text-center">{{keyLabel}}</div>
+        </div>
+        <div class="row" v-for="row in rows">
+            <button type="button" v-for="cell in row" :class="'btn ' + cell.style + ' col'"
+                    :audio-id="'audio-' + cell.name" @click="playSound">▶
+            </button>
+        </div>
+        <h2>シャウト（おまけ）</h2>
+        <div class="row">
+            <p type="button" v-for="sound in etcSounds" class="btn btn-light col"
+               :audio-id="'audio-' + sound.name" @click="playSound">▶
+            </p>
+        </div>
+    </div>
+    <br>
+    <h2>パーカッション</h2>
+    <div id="play-percussion" class="row">
+        <button type="button" v-for="name in sounds" :audio-id='"audio-" + name' @click="playSound"
+                class="btn btn-light col">▶
+        </button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/dist/vue-slider-component.umd.min.js"></script>
+
+<script src="sounds.js"></script>
+</body>
+</html>
