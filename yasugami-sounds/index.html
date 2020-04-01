@@ -46,15 +46,17 @@
             <div v-for="keyLabel in keyLabels" class="col text-center">{{keyLabel}}</div>
         </div>
         <div class="row" v-for="row in rows">
-            <button type="button" v-for="cell in row" :class="'btn ' + cell.style + ' col'"
+            <button v-if="cell.name !== undefined" type="button" v-for="cell in row"
+                    :class="'btn ' + cell.style + ' col'"
                     :audio-id="'audio-' + cell.name" @click="playSound">▶
             </button>
+            <div v-else class="btn col invisible"></div>
         </div>
         <h2>シャウト（おまけ）</h2>
         <div class="row">
-            <p type="button" v-for="sound in etcSounds" class="btn btn-light col"
-               :audio-id="'audio-' + sound.name" @click="playSound">▶
-            </p>
+            <button type="button" v-for="sound in etcSounds" class="btn btn-light col"
+                    :audio-id="'audio-' + sound.name" @click="playSound">▶
+            </button>
         </div>
     </div>
     <br>
@@ -66,9 +68,8 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/dist/vue-slider-component.umd.min.js"></script>
-
 <script src="sounds.js"></script>
 </body>
 </html>
