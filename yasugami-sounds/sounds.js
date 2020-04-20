@@ -1,8 +1,8 @@
 const VueSlider = window['vue-slider-component'];
 
-var volume = 60;
+let volume = 60;
 
-var perc = [
+const perc = [
     "perc-000",
     "perc-001",
     "perc-002",
@@ -15,9 +15,9 @@ var perc = [
     "perc-009"
 ];
 
-var keyOrder = ["d", "ds", "e", "f", "fs", "g", "gs", "a", "as", "b", "c", "cs"];
+const keyOrder = ["d", "ds", "e", "f", "fs", "g", "gs", "a", "as", "b", "c", "cs"];
 
-var keyName = {
+const keyName = {
     "a": {label: "ラ", style: "btn-light"},
     "as": {label: "ラ#", style: "btn-dark"},
     "b": {label: "シ", style: "btn-light"},
@@ -32,7 +32,7 @@ var keyName = {
     "gs": {label: "ソ#", style: "btn-dark"}
 };
 
-var shouts = [
+const shouts = [
     {name: "a-000", key: "a"},
     {name: "a-001", key: "a"},
     {name: "a-002", key: "a"},
@@ -79,13 +79,13 @@ var shouts = [
     {name: "etc-007", key: "etc"}
 ];
 
-var keyLabels = function () {
+const keyLabels = function () {
     return keyOrder.map(v => keyName[v].label);
 }();
 
-var shoutList = function () {
+const shoutList = function () {
 
-    var map = {};
+    const map = {};
 
     shouts.forEach(function (shout) {
 
@@ -98,19 +98,19 @@ var shoutList = function () {
 
     });
 
-    var rows = [];
+    const rows = [];
 
     while (true) {
 
-        var isNotEmpty = false;
+        let isNotEmpty = false;
 
-        var cells = [];
+        const cells = [];
 
         keyOrder.forEach(function (key) {
 
             if (map[key].length) {
 
-                var shout = map[key].pop();
+                let shout = map[key].pop();
 
                 cells.push({
                     name: shout.name,
@@ -141,9 +141,9 @@ var shoutList = function () {
 
 }();
 
-var playSound = function (id) {
+const playSound = function (id) {
 
-    var audio = document.getElementById(id);
+    const audio = document.getElementById(id);
 
     audio.volume = volume / 100.0;
 
@@ -152,18 +152,18 @@ var playSound = function (id) {
 }
 
 
-var loadShoutApp = new Vue({
+const loadShoutApp = new Vue({
     el: "#load-shout",
     data: {sounds: shouts}
 });
 
-var playShoutApp = new Vue({
+const playShoutApp = new Vue({
     el: "#play-shout",
     data: {rows: shoutList.rows, etcSounds: shoutList.etcSounds, keyLabels: keyLabels},
     methods: {
         playSound: function (event) {
 
-            var audioId = event.target.getAttribute('audio-id');
+            const audioId = event.target.getAttribute('audio-id');
 
             playSound(audioId);
 
@@ -172,21 +172,21 @@ var playShoutApp = new Vue({
 });
 
 
-var loadPercussionApp = new Vue({
+const loadPercussionApp = new Vue({
 
     el: "#load-percussion",
     data: {sounds: perc}
 
 });
 
-var playPercussionApp = new Vue({
+const playPercussionApp = new Vue({
 
     el: "#play-percussion",
     data: {sounds: perc},
     methods: {
         playSound: function (event) {
 
-            var audioId = event.target.getAttribute('audio-id');
+            const audioId = event.target.getAttribute('audio-id');
 
             playSound(audioId);
 
@@ -194,7 +194,7 @@ var playPercussionApp = new Vue({
     }
 });
 
-let app = new Vue({
+const app = new Vue({
     el: '#app',
     components: {
         'vueSlider': VueSlider,
